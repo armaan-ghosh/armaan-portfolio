@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   Design tokens
+   Light is the default; .dark (set by next-themes) flips the palette.
+---------------------------------------------------------------------------- */
+:root {
+  --background: #f8f7f4;
+  --surface: #ffffff;
+  --surface-2: #f1efea;
+  --foreground: #16171c;
+  --muted: #5b5f6a;
+  --muted-strong: #383b43;
+  --border: #e6e3dc;
+  --border-strong: #d6d2c8;
+  --accent: #5046e5;
+  --accent-strong: #4035d4;
+  --accent-foreground: #ffffff;
+  --accent-soft: rgba(80, 70, 229, 0.08);
+  --grid-line: rgba(22, 23, 28, 0.04);
+  --glass: rgba(255, 255, 255, 0.7);
+  --shadow-color: 220 30% 50%;
+}
+
+.dark {
+  --background: #0a0b0e;
+  --surface: #111317;
+  --surface-2: #15181e;
+  --foreground: #e8eaef;
+  --muted: #8b909c;
+  --muted-strong: #aeb3be;
+  --border: #1d2027;
+  --border-strong: #2a2e37;
+  --accent: #8b93ff;
+  --accent-strong: #a5abff;
+  --accent-foreground: #0a0b0e;
+  --accent-soft: rgba(139, 147, 255, 0.1);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glass: rgba(17, 19, 23, 0.6);
+  --shadow-color: 220 40% 2%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-card: 1rem;
+
+  --shadow-soft: 0 1px 2px hsl(var(--shadow-color) / 0.08),
+    0 8px 24px -12px hsl(var(--shadow-color) / 0.18);
+  --shadow-lift: 0 1px 2px hsl(var(--shadow-color) / 0.1),
+    0 20px 48px -20px hsl(var(--shadow-color) / 0.3);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Offset in-page anchors so the sticky nav doesn't cover headings. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--color-accent-strong);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Subtle technical grid texture used behind hero / section backdrops. */
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        var(--grid-line) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-glass {
+    background-color: var(--glass);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      var(--foreground) 30%,
+      var(--accent) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-lift {
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Radial fade mask, useful for decorative backdrops. */
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+}

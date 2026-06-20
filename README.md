@@ -1,71 +1,99 @@
-# Getting Started with Create React App
+# Armaan Ghosh — Personal Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A polished, production-ready personal portfolio for **Armaan Ghosh** — Computer
+Engineering student at the University of Waterloo and software engineer (2× SWE
+intern at Shopify).
 
-## Available Scripts
+Built as a fast, accessible, dark-first product site rather than a template:
+single-page primary experience with dedicated project case-study routes,
+generated Open Graph imagery, structured data, and restrained motion.
 
-In the project directory, you can run:
+## Tech stack
 
-### `npm start`
+- **Next.js 15** (App Router) + **React 19**
+- **TypeScript** (strict)
+- **Tailwind CSS v4** (CSS-first config with design tokens)
+- **Framer Motion** for restrained, reduced-motion-aware animation
+- **next-themes** for the dark/light toggle
+- **lucide-react** for icons
+- **next/font** with **Geist** (sans) and **Geist Mono**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+npm run dev          # http://localhost:3000
+```
 
-### `npm test`
+### Scripts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Command             | Description                              |
+| ------------------- | ---------------------------------------- |
+| `npm run dev`       | Start the dev server                     |
+| `npm run build`     | Production build                         |
+| `npm run start`     | Serve the production build               |
+| `npm run lint`      | ESLint (next/core-web-vitals + TS rules) |
+| `npm run typecheck` | TypeScript type checking (`tsc --noEmit`)|
 
-### `npm run build`
+## Project structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+  app/
+    layout.tsx              # Root layout, fonts, theme provider, Person JSON-LD
+    page.tsx                # Single-page home (assembles all sections)
+    globals.css             # Tailwind v4 + design tokens (light/dark)
+    not-found.tsx           # Custom 404
+    icon.tsx                # Generated AG monogram favicon
+    opengraph-image.tsx     # Generated social-share image (1200×630)
+    sitemap.ts / robots.ts  # SEO routes
+    projects/[slug]/page.tsx# Project case-study routes (SSG)
+  components/
+    layout/                 # Navbar, mobile nav, theme toggle, footer
+    sections/               # Hero, Experience, Projects, Skills, About, Contact
+    projects/               # Project card + bespoke CSS visuals
+    experience/             # Expandable experience timeline item
+    providers/              # Theme provider
+    ui/                     # Container, Button, Badge, Reveal, SectionHeading, links
+  data/                     # Single source of truth (content)
+    site.ts  socials.ts  experience.ts  projects.ts  skills.ts  education.ts  nav.ts
+  lib/
+    utils.ts  metadata.ts
+public/
+  resume/Armaan-Ghosh-Resume.pdf
+  images/armaan-ghosh.png
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Content management
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+All content lives in `src/data/*` as typed TypeScript — no content is hardcoded
+in components. Update those files to change copy, experience, projects, skills,
+and links. Long-form case studies live alongside each project in
+`src/data/projects.ts`.
 
-### `npm run eject`
+## Environment variables
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+None are required to run the site. One optional variable:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Variable               | Purpose                                              | Default                  |
+| ---------------------- | ---------------------------------------------------- | ------------------------ |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL for metadata, sitemap, OG, JSON-LD| `https://armaanghosh.com`|
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Set it in Vercel (or `.env.local`) to your production domain before deploying.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deploying to Vercel
 
-## Learn More
+1. Push this repository to GitHub.
+2. In Vercel, **Add New → Project** and import the repo. The framework is
+   auto-detected as Next.js — no build configuration is required.
+3. Add the `NEXT_PUBLIC_SITE_URL` environment variable (your production domain).
+4. Deploy. Subsequent pushes deploy automatically.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Accessibility & performance
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Personal-Website
+- Semantic HTML, skip-to-content link, keyboard-accessible nav and controls.
+- Respects `prefers-reduced-motion`; animations never block content access.
+- WCAG-conscious contrast in both themes; visible focus states throughout.
+- Server components by default; client components only where interaction needs them.
+- No private contact details (phone/address) are displayed anywhere.
+```
